@@ -1,5 +1,5 @@
-import { drizzle } from "drizzle-orm/neon-serverless";
-import { Pool } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import { 
   type User, type InsertUser,
   type MenuItem, type InsertMenuItem,
@@ -9,8 +9,8 @@ import {
 } from "@shared/schema";
 import { eq } from "drizzle-orm";
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const db = drizzle(pool);
+const sql = neon(process.env.DATABASE_URL!);
+const db = drizzle(sql);
 
 export interface IStorage {
   // Users

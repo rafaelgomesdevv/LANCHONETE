@@ -2,69 +2,40 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star, Quote } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-
-interface Review {
-  id: string;
-  name: string;
-  rating: number;
-  text: string;
-  date: string;
-  verified?: boolean;
-}
-
-// todo: replace with real Google Maps reviews from API
-const reviews: Review[] = [
-  {
-    id: '1',
-    name: 'Ana Morais Gonçalves',
-    rating: 5,
-    text: 'Very nice place to taste Brazilian flavours. Great service and atmosphere!',
-    date: 'há 1 ano',
-    verified: true
-  },
-  {
-    id: '2',
-    name: 'Natalia Santana',
-    rating: 5,
-    text: 'Top-notch food, excellent service from Bárbara! The açaí is very creamy and the variety of creams and flavors is amazing! Hugo also makes an excellent coxinha, very creamy and delicious.',
-    date: 'há 3 meses',
-    verified: true
-  },
-  {
-    id: '3',
-    name: 'Gabrielle Costa',
-    rating: 5,
-    text: 'Great atmosphere and wonderful food! The best açaí in Vila Real. I\'m a regular customer and the staff always provide excellent service. It\'s an environment I truly enjoy, always returning to.',
-    date: 'há 3 meses',
-    verified: true
-  },
-  {
-    id: '4',
-    name: 'João Silva',
-    rating: 4,
-    text: 'Excelente localização e comida saborosa. O açaí é realmente muito bom e o atendimento é simpático.',
-    date: 'há 2 meses',
-    verified: true
-  },
-  {
-    id: '5',
-    name: 'Maria Santos',
-    rating: 5,
-    text: 'Ambiente perfeito para um lanche com amigos. As coxinhas são deliciosas e o açaí é o melhor da região!',
-    date: 'há 1 mês',
-    verified: true
-  },
-  {
-    id: '6',
-    name: 'Pedro Costa',
-    rating: 5,
-    text: 'Recomendo muito! Ingredientes frescos, preços justos e um atendimento excelente. Voltarei sempre!',
-    date: 'há 3 semanas',
-    verified: true
-  }
-];
+import { useQuery } from '@tanstack/react-query';
+import { type Review } from '@shared/schema';
 
 export default function ReviewsSection() {
+  const { data: reviews, isLoading, error } = useQuery<Review[]>({
+    queryKey: ['/api/reviews'],
+  });
+
+  if (isLoading) {
+    return (
+      <section id="avaliacoes" className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">O Que Dizem Nossos Clientes</h2>
+            <p className="text-muted-foreground">Carregando avaliações...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || !reviews || reviews.length === 0) {
+    return (
+      <section id="avaliacoes" className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">O Que Dizem Nossos Clientes</h2>
+            <p className="text-muted-foreground">Erro ao carregar avaliações</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
 
   const renderStars = (rating: number) => {
