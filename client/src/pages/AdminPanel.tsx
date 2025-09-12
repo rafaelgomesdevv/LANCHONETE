@@ -13,8 +13,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { type MenuItem, type InsertMenuItem, insertMenuItemSchema } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, Edit, Plus } from "lucide-react";
+import { Trash2, Edit, Plus, Save, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const editMenuItemSchema = insertMenuItemSchema.extend({
+  price: z.string().refine(
+    (val) => /^\d+([,.]\d{1,2})?$/.test(val),
+    { message: "Preço deve estar no formato: 10.50 ou 10,50" }
+  ),
+});
 
 export default function AdminPanel() {
   const [isEditing, setIsEditing] = useState<string | null>(null);
@@ -25,7 +33,19 @@ export default function AdminPanel() {
   });
 
   const form = useForm<InsertMenuItem>({
-    resolver: zodResolver(insertMenuItemSchema),
+    resolver: zodResolver(editMenuItemSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      price: "",
+      category: "Açaí",
+      popular: false,
+      available: true,
+    },
+  });
+
+  const editForm = useForm<InsertMenuItem>({
+    resolver: zodResolver(editMenuItemSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -74,6 +94,29 @@ export default function AdminPanel() {
 
   const onSubmit = (data: InsertMenuItem) => {
     createMutation.mutate(data);
+  };
+
+  const onEditSubmit = (data: InsertMenuItem) => {
+    if (isEditing) {
+      updateMutation.mutate({ id: isEditing, data });
+    }
+  };
+
+  const handleEditClick = (item: MenuItem) => {
+    setIsEditing(item.id);
+    editForm.reset({
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      category: item.category,
+      popular: item.popular || false,
+      available: item.available || false,
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(null);
+    editForm.reset();
   };
 
   const handleToggleAvailable = (id: string, available: boolean) => {
@@ -246,77 +289,211 @@ export default function AdminPanel() {
           {menuItems?.map((item) => (
             <Card key={item.id} className="hover-elevate" data-testid={`card-menu-item-${item.id}`}>
               <CardContent className="p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="text-lg font-semibold" data-testid={`text-item-name-${item.id}`}>
-                        {item.name}
-                      </h3>
-                      <Badge variant="secondary" data-testid={`badge-category-${item.id}`}>
-                        {item.category}
-                      </Badge>
-                      {item.popular && (
-                        <Badge variant="default" data-testid={`badge-popular-${item.id}`}>
-                          Popular
-                        </Badge>
-                      )}
-                      {!item.available && (
-                        <Badge variant="destructive" data-testid={`badge-unavailable-${item.id}`}>
-                          Indisponível
-                        </Badge>
-                      )}
-                    </div>
-                    <p className="text-muted-foreground mb-2" data-testid={`text-item-description-${item.id}`}>
-                      {item.description}
-                    </p>
-                    <p className="text-xl font-bold text-primary" data-testid={`text-item-price-${item.id}`}>
-                      R$ {item.price}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <div className="flex flex-col gap-2">
-                      <div className="flex items-center gap-2">
-                        <Switch
-                          checked={item.available || false}
-                          onCheckedChange={(checked) => handleToggleAvailable(item.id, checked)}
-                          disabled={updateMutation.isPending}
-                          data-testid={`switch-available-${item.id}`}
+                {isEditing === item.id ? (
+                  // Edit Form
+                  <Form {...editForm}>
+                    <form onSubmit={editForm.handleSubmit(onEditSubmit)} className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={editForm.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Nome do Item</FormLabel>
+                              <FormControl>
+                                <Input {...field} data-testid={`input-edit-name-${item.id}`} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <Label className="text-sm">Disponível</Label>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Switch
-                          checked={item.popular || false}
-                          onCheckedChange={(checked) => handleTogglePopular(item.id, checked)}
-                          disabled={updateMutation.isPending}
-                          data-testid={`switch-popular-${item.id}`}
+                        
+                        <FormField
+                          control={editForm.control}
+                          name="price"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Preço (R$)</FormLabel>
+                              <FormControl>
+                                <Input {...field} data-testid={`input-edit-price-${item.id}`} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                        <Label className="text-sm">Popular</Label>
                       </div>
+
+                      <FormField
+                        control={editForm.control}
+                        name="description"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Descrição</FormLabel>
+                            <FormControl>
+                              <Textarea {...field} data-testid={`input-edit-description-${item.id}`} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={editForm.control}
+                        name="category"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Categoria</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger data-testid={`select-edit-category-${item.id}`}>
+                                  <SelectValue placeholder="Selecione uma categoria" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="Açaí">Açaí</SelectItem>
+                                <SelectItem value="Hambúrgueres">Hambúrgueres</SelectItem>
+                                <SelectItem value="Salgados">Salgados</SelectItem>
+                                <SelectItem value="Porções">Porções</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <div className="flex gap-4">
+                        <FormField
+                          control={editForm.control}
+                          name="popular"
+                          render={({ field }) => (
+                            <FormItem className="flex items-center space-y-0 gap-2">
+                              <FormControl>
+                                <Switch
+                                  checked={field.value || false}
+                                  onCheckedChange={field.onChange}
+                                  data-testid={`switch-edit-popular-${item.id}`}
+                                />
+                              </FormControl>
+                              <FormLabel>Item Popular</FormLabel>
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={editForm.control}
+                          name="available"
+                          render={({ field }) => (
+                            <FormItem className="flex items-center space-y-0 gap-2">
+                              <FormControl>
+                                <Switch
+                                  checked={field.value || false}
+                                  onCheckedChange={field.onChange}
+                                  data-testid={`switch-edit-available-${item.id}`}
+                                />
+                              </FormControl>
+                              <FormLabel>Disponível</FormLabel>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <div className="flex gap-2">
+                        <Button 
+                          type="submit" 
+                          disabled={updateMutation.isPending}
+                          size="sm"
+                          data-testid={`button-save-${item.id}`}
+                        >
+                          <Save className="h-4 w-4 mr-1" />
+                          {updateMutation.isPending ? "Salvando..." : "Salvar"}
+                        </Button>
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          size="sm"
+                          onClick={handleCancelEdit}
+                          data-testid={`button-cancel-${item.id}`}
+                        >
+                          <X className="h-4 w-4 mr-1" />
+                          Cancelar
+                        </Button>
+                      </div>
+                    </form>
+                  </Form>
+                ) : (
+                  // Display Mode
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-lg font-semibold" data-testid={`text-item-name-${item.id}`}>
+                          {item.name}
+                        </h3>
+                        <Badge variant="secondary" data-testid={`badge-category-${item.id}`}>
+                          {item.category}
+                        </Badge>
+                        {item.popular && (
+                          <Badge variant="default" data-testid={`badge-popular-${item.id}`}>
+                            Popular
+                          </Badge>
+                        )}
+                        {!item.available && (
+                          <Badge variant="destructive" data-testid={`badge-unavailable-${item.id}`}>
+                            Indisponível
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-muted-foreground mb-2" data-testid={`text-item-description-${item.id}`}>
+                        {item.description}
+                      </p>
+                      <p className="text-xl font-bold text-primary" data-testid={`text-item-price-${item.id}`}>
+                        R$ {item.price}
+                      </p>
                     </div>
                     
-                    <div className="flex flex-col gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setIsEditing(item.id)}
-                        data-testid={`button-edit-${item.id}`}
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => deleteMutation.mutate(item.id)}
-                        disabled={deleteMutation.isPending}
-                        data-testid={`button-delete-${item.id}`}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                    <div className="flex items-center gap-2">
+                      <div className="flex flex-col gap-2">
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={item.available || false}
+                            onCheckedChange={(checked) => handleToggleAvailable(item.id, checked)}
+                            disabled={updateMutation.isPending}
+                            data-testid={`switch-available-${item.id}`}
+                          />
+                          <Label className="text-sm">Disponível</Label>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Switch
+                            checked={item.popular || false}
+                            onCheckedChange={(checked) => handleTogglePopular(item.id, checked)}
+                            disabled={updateMutation.isPending}
+                            data-testid={`switch-popular-${item.id}`}
+                          />
+                          <Label className="text-sm">Popular</Label>
+                        </div>
+                      </div>
+                      
+                      <div className="flex flex-col gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEditClick(item)}
+                          data-testid={`button-edit-${item.id}`}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => deleteMutation.mutate(item.id)}
+                          disabled={deleteMutation.isPending}
+                          data-testid={`button-delete-${item.id}`}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </CardContent>
             </Card>
           ))}
