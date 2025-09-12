@@ -57,6 +57,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch("/api/menu/:id", async (req, res) => {
+    try {
+      const validatedData = insertMenuItemSchema.partial().parse(req.body);
+      const item = await storage.updateMenuItem(req.params.id, validatedData);
+      res.json(item);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid data", details: error.errors });
+      }
+      console.error("Error updating menu item:", error);
+      res.status(500).json({ error: "Failed to update menu item" });
+    }
+  });
+
   app.delete("/api/menu/:id", async (req, res) => {
     try {
       await storage.deleteMenuItem(req.params.id);
