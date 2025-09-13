@@ -22,26 +22,26 @@ export default function MenuSection() {
   const [isMenuDialogOpen, setIsMenuDialogOpen] = useState(false);
 
   return (
-    <section id="menu" className="py-16 bg-background">
+    <section id="menu" className="py-8 md:py-16 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4" data-testid="badge-menu">
+        <div className="text-center mb-8 md:mb-12">
+          <Badge variant="outline" className="mb-3" data-testid="badge-menu">
             Menu Premium
           </Badge>
-          <h2 className="text-4xl font-bold mb-4" data-testid="text-menu-title">
+          <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4" data-testid="text-menu-title">
             Sabores Autênticos do Brasil
           </h2>
-          <p className="text-xl text-muted-foreground" data-testid="text-menu-description">
+          <p className="text-base md:text-xl text-muted-foreground px-2" data-testid="text-menu-description">
             Descubra nossa seleção premium de pratos brasileiros
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
           {FEATURED_ITEMS.map((item) => {
             const itemImage = getFeaturedImage(item.id);
             return (
               <Card key={item.id} className="hover-elevate overflow-hidden group" data-testid={`card-featured-${item.id}`}>
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="aspect-[4/3] md:aspect-[4/3] overflow-hidden">
                   <img 
                     src={itemImage} 
                     alt={item.name}
@@ -49,29 +49,29 @@ export default function MenuSection() {
                     data-testid={`img-featured-${item.id}`}
                   />
                 </div>
-                <CardHeader className="pb-3">
+                <CardHeader className="p-4 md:pb-3">
                   <div className="flex items-start justify-between mb-2">
-                    <CardTitle className="text-xl leading-tight" data-testid={`text-featured-name-${item.id}`}>
+                    <CardTitle className="text-lg md:text-xl leading-tight" data-testid={`text-featured-name-${item.id}`}>
                       {item.name}
                     </CardTitle>
                     {item.popular && (
-                      <Badge variant="destructive" className="ml-2 flex-shrink-0" data-testid={`badge-featured-popular-${item.id}`}>
+                      <Badge variant="destructive" className="ml-2 flex-shrink-0 text-xs" data-testid={`badge-featured-popular-${item.id}`}>
                         <Star className="w-3 h-3 mr-1" />
                         Popular
                       </Badge>
                     )}
                   </div>
-                  <div className="flex items-center justify-between mb-3">
-                    <Badge variant="outline" className="text-sm" data-testid={`badge-featured-category-${item.id}`}>
+                  <div className="flex items-center justify-between mb-2 md:mb-3">
+                    <Badge variant="outline" className="text-xs md:text-sm" data-testid={`badge-featured-category-${item.id}`}>
                       {item.category}
                     </Badge>
-                    <span className="text-2xl font-bold text-primary" data-testid={`text-featured-price-${item.id}`}>
+                    <span className="text-xl md:text-2xl font-bold text-primary" data-testid={`text-featured-price-${item.id}`}>
                       €{item.price}
                     </span>
                   </div>
                 </CardHeader>
-                <CardContent className="pt-0">
-                  <CardDescription className="text-sm leading-relaxed" data-testid={`text-featured-description-${item.id}`}>
+                <CardContent className="pt-0 px-4 pb-4">
+                  <CardDescription className="text-xs md:text-sm leading-relaxed" data-testid={`text-featured-description-${item.id}`}>
                     {item.description}
                   </CardDescription>
                 </CardContent>
@@ -82,16 +82,16 @@ export default function MenuSection() {
 
         <div className="text-center">
           <Button 
-            size="lg" 
-            className="text-lg px-8 py-6 shadow-lg" 
+            size="default"
+            className="text-base md:text-lg px-6 md:px-8 py-3 md:py-6 shadow-lg w-full max-w-sm md:w-auto" 
             onClick={() => setIsMenuDialogOpen(true)}
             data-testid="button-view-full-menu"
           >
-            <MenuIcon className="w-5 h-5 mr-2" />
+            <MenuIcon className="w-4 h-4 md:w-5 md:h-5 mr-2" />
             Ver Menu Completo
           </Button>
-          <p className="text-muted-foreground mt-4" data-testid="text-price-range">
-            Preços a partir de €1,50 • Entregas disponíveis
+          <p className="text-sm md:text-base text-muted-foreground mt-3 md:mt-4 px-4" data-testid="text-price-range">
+            Preços a partir de €1,50<br className="md:hidden" /><span className="hidden md:inline"> • </span>Entregas disponíveis
           </p>
         </div>
       </div>
