@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { FEATURED_ITEMS } from '@/data/menuData';
 import { MenuDialog } from './MenuDialog';
 import { MenuIcon, Star } from 'lucide-react';
-import acaiPremium from '../assets/acai-premium-new.jpg';
+import acaiPremium from '../assets/acai-premium-animated.gif';
 import burgerPremium from '../assets/burger-premium.jpg';
 import beveragePremium from '../assets/beverage-premium.jpg';
 
