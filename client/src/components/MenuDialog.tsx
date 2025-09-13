@@ -18,12 +18,7 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
   const filteredData = useMemo(() => {
     let filtered = COMPLETE_MENU_DATA;
 
-    // Filter by category if selected
-    if (selectedCategory) {
-      filtered = filtered.filter(category => category.id === selectedCategory);
-    }
-
-    // Filter by search query
+    // If there's a search query, search across ALL categories
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim();
       filtered = filtered.map(category => ({
@@ -34,6 +29,10 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
           item.category.toLowerCase().includes(query)
         )
       })).filter(category => category.items.length > 0);
+    }
+    // Only filter by category if there's no search query
+    else if (selectedCategory) {
+      filtered = filtered.filter(category => category.id === selectedCategory);
     }
 
     return filtered;
