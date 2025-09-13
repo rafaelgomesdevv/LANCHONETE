@@ -107,7 +107,7 @@ export default function ContactSection() {
                       className="flex justify-between items-center py-2 px-3 rounded-md bg-[transparent]"
                       data-testid={`schedule-${schedule.day.toLowerCase().replace('-', '')}`}
                     >
-                      <span className={`${index === todayIndex ? 'font-semibold' : ''}`}>
+                      <span className="font-normal">
                         {schedule.day}
                       </span>
                       <span className={`${
