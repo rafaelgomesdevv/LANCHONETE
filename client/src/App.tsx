@@ -11,6 +11,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={RestaurantHomepage} />
+      <Route path="/menu" component={MenuPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
