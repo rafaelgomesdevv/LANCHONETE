@@ -122,7 +122,7 @@ export default function ContactSection() {
 
           {/* Google Maps */}
           <div className="lg:col-span-2">
-            <Card className="h-full mt-[0px] mb-[0px] pt-[0px] pb-[0px] ml-[0px] mr-[0px] pl-[10px] pr-[10px]">
+            <Card className="h-full ml-[0px] mr-[0px] pt-[100px] pb-[100px] mt-[0px] mb-[0px] pl-[10px] pr-[10px]">
               <CardHeader>
                 <CardTitle data-testid="text-location-title">Nossa Localização</CardTitle>
               </CardHeader>
