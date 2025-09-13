@@ -110,9 +110,7 @@ export default function ContactSection() {
                       <span className="font-normal">
                         {schedule.day}
                       </span>
-                      <span className={`${
-                        schedule.hours === 'Fechado' ? 'text-destructive' : 'text-muted-foreground'
-                      } ${index === todayIndex ? 'font-semibold' : ''}`}>
+                      <span className="text-muted-foreground font-normal">
                         {schedule.hours}
                       </span>
                     </div>
