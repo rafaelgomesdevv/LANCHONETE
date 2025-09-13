@@ -9,8 +9,19 @@ import {
 } from "@shared/schema";
 import { eq } from "drizzle-orm";
 
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql);
+let db: ReturnType<typeof drizzle> | null = null;
+
+function getDb() {
+  if (!db) {
+    const databaseUrl = process.env.DATABASE_URL;
+    if (!databaseUrl) {
+      throw new Error("DATABASE_URL environment variable is not set. Please ensure the database is properly configured.");
+    }
+    const sql = neon(databaseUrl);
+    db = drizzle(sql);
+  }
+  return db;
+}
 
 export interface IStorage {
   // Users
@@ -37,36 +48,43 @@ export interface IStorage {
 export class DbStorage implements IStorage {
   // Users
   async getUser(id: string): Promise<User | undefined> {
+    const db = getDb();
     const result = await db.select().from(users).where(eq(users.id, id));
     return result[0];
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
+    const db = getDb();
     const result = await db.select().from(users).where(eq(users.username, username));
     return result[0];
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
+    const db = getDb();
     const result = await db.insert(users).values(insertUser).returning();
     return result[0];
   }
 
   // Menu Items
   async getMenuItems(): Promise<MenuItem[]> {
+    const db = getDb();
     return await db.select().from(menuItems).where(eq(menuItems.available, true));
   }
 
   async getMenuItem(id: string): Promise<MenuItem | undefined> {
+    const db = getDb();
     const result = await db.select().from(menuItems).where(eq(menuItems.id, id));
     return result[0];
   }
 
   async createMenuItem(item: InsertMenuItem): Promise<MenuItem> {
+    const db = getDb();
     const result = await db.insert(menuItems).values(item).returning();
     return result[0];
   }
 
   async updateMenuItem(id: string, item: Partial<InsertMenuItem>): Promise<MenuItem> {
+    const db = getDb();
     const result = await db.update(menuItems)
       .set(item)
       .where(eq(menuItems.id, id))
@@ -75,6 +93,7 @@ export class DbStorage implements IStorage {
   }
 
   async deleteMenuItem(id: string): Promise<void> {
+    const db = getDb();
     await db.update(menuItems)
       .set({ available: false })
       .where(eq(menuItems.id, id));
@@ -82,21 +101,25 @@ export class DbStorage implements IStorage {
 
   // Reviews
   async getReviews(): Promise<Review[]> {
+    const db = getDb();
     return await db.select().from(reviews);
   }
 
   async createReview(review: InsertReview): Promise<Review> {
+    const db = getDb();
     const result = await db.insert(reviews).values(review).returning();
     return result[0];
   }
 
   // Restaurant Info
   async getRestaurantInfo(): Promise<RestaurantInfo | undefined> {
+    const db = getDb();
     const result = await db.select().from(restaurantInfo).where(eq(restaurantInfo.id, "main"));
     return result[0];
   }
 
   async updateRestaurantInfo(info: InsertRestaurantInfo): Promise<RestaurantInfo> {
+    const db = getDb();
     const result = await db.insert(restaurantInfo)
       .values({ ...info, id: "main" })
       .onConflictDoUpdate({
