@@ -18,7 +18,7 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
   const filteredData = useMemo(() => {
     let filtered = COMPLETE_MENU_DATA;
 
-    // If there's a search query, search across ALL categories
+    // Apply search query across all categories first
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim();
       filtered = filtered.map(category => ({
@@ -30,8 +30,9 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
         )
       })).filter(category => category.items.length > 0);
     }
-    // Only filter by category if there's no search query
-    else if (selectedCategory) {
+
+    // Then apply category filter if selected
+    if (selectedCategory) {
       filtered = filtered.filter(category => category.id === selectedCategory);
     }
 
@@ -42,6 +43,10 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
   const totalItems = COMPLETE_MENU_DATA.reduce((sum, category) => sum + category.items.length, 0);
 
   const clearSearch = () => {
+    setSearchQuery('');
+  };
+
+  const clearAll = () => {
     setSearchQuery('');
     setSelectedCategory(null);
   };
@@ -70,13 +75,14 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
               className="pl-10 pr-10 py-3 md:py-6 text-sm md:text-lg"
               data-testid="input-menu-search"
             />
-            {(searchQuery || selectedCategory) && (
+            {searchQuery && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={clearSearch}
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 text-muted-foreground hover:text-foreground"
                 data-testid="button-clear-search"
+                aria-label="Limpar pesquisa"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -84,7 +90,7 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
           </div>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap gap-1 md:gap-2">
+          <div className="flex flex-wrap gap-1 md:gap-2 items-center">
             <Button
               variant={selectedCategory === null ? "default" : "outline"}
               size="sm"
@@ -106,6 +112,20 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
                 {category.name}
               </Button>
             ))}
+            
+            {/* Clear all filters button - only show when there are active filters */}
+            {(searchQuery || selectedCategory) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearAll}
+                className="text-xs md:text-sm text-muted-foreground hover:text-destructive ml-2 md:ml-3"
+                data-testid="button-clear-all"
+              >
+                <X className="h-3 w-3 mr-1" />
+                Limpar Tudo
+              </Button>
+            )}
           </div>
         </div>
 
