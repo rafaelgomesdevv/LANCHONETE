@@ -43,11 +43,7 @@ export default function AboutSection() {
               Especialistas em açaí cremoso e deliciosas coxinhas, oferecemos uma experiência gastronômica 
               única num ambiente acolhedor e moderno.
             </p>
-            <p className="text-lg text-muted-foreground mb-8" data-testid="text-about-mission">
-              Com ingredientes frescos e receitas tradicionais, cada prato é preparado com carinho para 
-              proporcionar momentos especiais aos nossos clientes. Venha descobrir por que somos a 
-              referência em sabores brasileiros na região!
-            </p>
+            
 
             <div className="grid sm:grid-cols-2 gap-6">
               {features.map((feature) => (
