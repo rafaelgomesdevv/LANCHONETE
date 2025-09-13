@@ -28,34 +28,34 @@ const features = [
 
 export default function AboutSection() {
   return (
-    <section id="sobre" className="py-16 bg-card">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section id="sobre" className="py-8 md:py-16 bg-card">
+      <div className="container mx-auto px-3 md:px-4">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
           <div>
-            <Badge variant="outline" className="mb-4" data-testid="badge-about">
+            <Badge variant="outline" className="mb-3 md:mb-4 text-xs md:text-sm" data-testid="badge-about">
               Sobre Nós
             </Badge>
-            <h2 className="text-4xl font-bold mb-6" data-testid="text-about-title">
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6" data-testid="text-about-title">
               O Melhor Açaí de Vila Real
             </h2>
-            <p className="text-lg text-muted-foreground mb-6" data-testid="text-about-description">
+            <p className="text-sm md:text-lg text-muted-foreground mb-4 md:mb-6 leading-relaxed" data-testid="text-about-description">
               A Lanchonete & Cia traz os autênticos sabores brasileiros para o coração de Vila Real. 
               Especialistas em açaí cremoso e deliciosas coxinhas, oferecemos uma experiência gastronômica 
               única num ambiente acolhedor e moderno.
             </p>
             
 
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
               {features.map((feature) => (
-                <div key={feature.title} className="flex items-start space-x-3" data-testid={`feature-${feature.title.toLowerCase().replace(' ', '-')}`}>
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <feature.icon className="w-5 h-5 text-primary" />
+                <div key={feature.title} className="flex items-start space-x-2 md:space-x-3" data-testid={`feature-${feature.title.toLowerCase().replace(' ', '-')}`}>
+                  <div className="p-1.5 md:p-2 bg-primary/10 rounded-lg flex-shrink-0">
+                    <feature.icon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1" data-testid={`text-feature-title-${feature.title.toLowerCase().replace(' ', '-')}`}>
+                    <h3 className="font-semibold mb-1 text-sm md:text-base" data-testid={`text-feature-title-${feature.title.toLowerCase().replace(' ', '-')}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground" data-testid={`text-feature-desc-${feature.title.toLowerCase().replace(' ', '-')}`}>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed" data-testid={`text-feature-desc-${feature.title.toLowerCase().replace(' ', '-')}`}>
                       {feature.description}
                     </p>
                   </div>
@@ -64,21 +64,21 @@ export default function AboutSection() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative mt-6 lg:mt-0">
             <Card className="overflow-hidden">
               <CardContent className="p-0">
                 <img 
                   src={interiorImage} 
                   alt="Interior acolhedor da Lanchonete & Cia"
-                  className="w-full h-[400px] object-cover"
+                  className="w-full h-[250px] md:h-[400px] object-cover"
                   data-testid="img-restaurant-interior"
                 />
               </CardContent>
             </Card>
-            <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
+            <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary text-primary-foreground p-3 md:p-4 rounded-lg shadow-lg">
               <div className="text-center">
-                <div className="text-2xl font-bold" data-testid="text-rating-score">4.7</div>
-                <div className="text-sm" data-testid="text-rating-count">98 Avaliações</div>
+                <div className="text-xl md:text-2xl font-bold" data-testid="text-rating-score">4.7</div>
+                <div className="text-xs md:text-sm" data-testid="text-rating-count">98 Avaliações</div>
               </div>
             </div>
           </div>

@@ -72,13 +72,15 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
               data-testid="input-menu-search"
             />
             {(searchQuery || selectedCategory) && (
-              <button
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={clearSearch}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 text-muted-foreground hover:text-foreground"
                 data-testid="button-clear-search"
               >
                 <X className="h-4 w-4" />
-              </button>
+              </Button>
             )}
           </div>
 
@@ -87,7 +89,7 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
             <Button
               variant={selectedCategory === null ? "default" : "outline"}
               size="sm"
-              className="h-auto py-1.5 px-2 md:py-2 md:px-3 text-xs md:text-sm"
+              className="text-xs md:text-sm"
               onClick={() => setSelectedCategory(null)}
               data-testid="category-filter-all"
             >
@@ -98,7 +100,7 @@ export function MenuDialog({ open, onOpenChange }: MenuDialogProps) {
                 key={category.id}
                 variant={selectedCategory === category.id ? "default" : "outline"}
                 size="sm"
-                className="h-auto py-1.5 px-2 md:py-2 md:px-3 text-xs md:text-sm"
+                className="text-xs md:text-sm"
                 onClick={() => setSelectedCategory(category.id)}
                 data-testid={`category-filter-${category.id}`}
               >
