@@ -104,9 +104,7 @@ export default function ContactSection() {
                   {businessHours.map((schedule, index) => (
                     <div
                       key={schedule.day}
-                      className={`flex justify-between items-center py-2 px-3 rounded-md ${
-                        index === todayIndex ? 'bg-primary/10' : ''
-                      }`}
+                      className="flex justify-between items-center py-2 px-3 rounded-md bg-[transparent]"
                       data-testid={`schedule-${schedule.day.toLowerCase().replace('-', '')}`}
                     >
                       <span className={`${index === todayIndex ? 'font-semibold' : ''}`}>
