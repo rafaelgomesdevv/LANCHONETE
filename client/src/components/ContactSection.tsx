@@ -110,7 +110,7 @@ export default function ContactSection() {
                       <span className="font-normal">
                         {schedule.day}
                       </span>
-                      <span className="text-muted-foreground font-normal">
+                      <span className="font-normal text-[red]">
                         {schedule.hours}
                       </span>
                     </div>
