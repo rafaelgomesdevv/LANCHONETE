@@ -40,21 +40,21 @@ export default function ContactSection() {
   const todayIndex = dayMapping[currentDay];
 
   return (
-    <section id="contato" className="py-16 bg-card">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4" data-testid="badge-contact">
+    <section id="contato" className="py-8 md:py-16 bg-card">
+      <div className="container mx-auto px-3 md:px-4">
+        <div className="text-center mb-8 md:mb-12">
+          <Badge variant="outline" className="mb-3 md:mb-4 text-xs md:text-sm" data-testid="badge-contact">
             Contato
           </Badge>
-          <h2 className="text-4xl font-bold mb-4" data-testid="text-contact-title">
+          <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4" data-testid="text-contact-title">
             Visite-nos ou Entre em Contato
           </h2>
-          <p className="text-xl text-muted-foreground" data-testid="text-contact-description">
+          <p className="text-sm md:text-xl text-muted-foreground px-4 md:px-0" data-testid="text-contact-description">
             Estamos aqui para lhe servir os melhores sabores brasileiros
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <Card>
@@ -63,25 +63,25 @@ export default function ContactSection() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {contactInfo.map((info) => (
-                  <div key={info.label} className="flex items-start space-x-3" data-testid={`contact-${info.label.toLowerCase()}`}>
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <info.icon className="w-5 h-5 text-primary" />
+                  <div key={info.label} className="flex items-start space-x-2 md:space-x-3" data-testid={`contact-${info.label.toLowerCase()}`}>
+                    <div className="p-1.5 md:p-2 bg-primary/10 rounded-lg flex-shrink-0">
+                      <info.icon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                     </div>
-                    <div>
-                      <p className="font-semibold mb-1" data-testid={`text-${info.label.toLowerCase()}-label`}>
+                    <div className="min-w-0">
+                      <p className="font-semibold mb-1 text-sm md:text-base" data-testid={`text-${info.label.toLowerCase()}-label`}>
                         {info.label}
                       </p>
                       {info.action ? (
                         <button
-                          className="p-0 h-auto text-left text-muted-foreground hover:text-primary underline"
+                          className="p-0 h-auto text-left text-muted-foreground hover:text-primary underline text-xs md:text-sm break-words"
                           onClick={() => window.open(info.action, '_blank')}
                           data-testid={`button-${info.label.toLowerCase()}`}
                         >
                           {info.value}
-                          <ExternalLink className="w-3 h-3 ml-1" />
+                          <ExternalLink className="w-3 h-3 ml-1 inline" />
                         </button>
                       ) : (
-                        <p className="text-muted-foreground" data-testid={`text-${info.label.toLowerCase()}-value`}>
+                        <p className="text-muted-foreground text-xs md:text-sm break-words" data-testid={`text-${info.label.toLowerCase()}-value`}>
                           {info.value}
                         </p>
                       )}
@@ -92,25 +92,35 @@ export default function ContactSection() {
             </Card>
 
             {/* Business Hours */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle className="flex items-center" data-testid="text-hours-title">
-                  <Clock className="w-5 h-5 mr-2" />
+            <Card className="mt-4 md:mt-6">
+              <CardHeader className="pb-3 md:pb-6">
+                <CardTitle className="flex items-center text-sm md:text-base" data-testid="text-hours-title">
+                  <Clock className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                   Horário de Funcionamento
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
+              <CardContent className="pt-0">
+                <div className="space-y-1 md:space-y-2">
                   {businessHours.map((schedule, index) => (
                     <div
                       key={schedule.day}
-                      className="flex justify-between items-center py-2 px-3 rounded-md bg-[transparent]"
+                      className={`flex justify-between items-center py-1.5 md:py-2 px-2 md:px-3 rounded-md transition-colors ${
+                        index === todayIndex ? 'bg-primary/5 border border-primary/20' : 'bg-transparent'
+                      }`}
                       data-testid={`schedule-${schedule.day.toLowerCase().replace('-', '')}`}
                     >
-                      <span className="font-normal">
+                      <span className={`font-normal text-xs md:text-sm ${
+                        index === todayIndex ? 'text-primary font-medium' : ''
+                      }`}>
                         {schedule.day}
                       </span>
-                      <span className="font-normal text-[red]">
+                      <span className={`font-normal text-xs md:text-sm ${
+                        schedule.hours === 'Fechado' 
+                          ? 'text-destructive' 
+                          : index === todayIndex 
+                            ? 'text-primary font-medium' 
+                            : 'text-muted-foreground'
+                      }`}>
                         {schedule.hours}
                       </span>
                     </div>
@@ -122,12 +132,12 @@ export default function ContactSection() {
 
           {/* Google Maps */}
           <div className="lg:col-span-2">
-            <Card className="h-full ml-[0px] mr-[0px] pt-[100px] pb-[100px] mt-[0px] mb-[0px] pl-[10px] pr-[10px]">
-              <CardHeader>
-                <CardTitle data-testid="text-location-title">Nossa Localização</CardTitle>
+            <Card className="h-full">
+              <CardHeader className="pb-3 md:pb-6">
+                <CardTitle className="text-sm md:text-base" data-testid="text-location-title">Nossa Localização</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
-                <div className="h-[500px] w-full">
+                <div className="h-[300px] md:h-[500px] w-full">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.4555555555557!2d-7.7249037!3d41.3055833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3b4b63a60ea017%3A0x5298c3e2baabd70c!2sLanchonete%20%26%20Cia%20(A%C3%A7a%C3%AD%20%26%20Cia)!5e0!3m2!1sen!2spt!4v1625097600000!5m2!1sen!2spt"
                     width="100%"
@@ -146,27 +156,29 @@ export default function ContactSection() {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center">
-          <div className="mb-6">
-            <p className="text-lg text-muted-foreground mb-4" data-testid="text-cta-description">
+        <div className="text-center px-4">
+          <div className="mb-4 md:mb-6">
+            <p className="text-sm md:text-lg text-muted-foreground mb-3 md:mb-4" data-testid="text-cta-description">
               Pronto para experimentar os autênticos sabores brasileiros?
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
               <Button
-                size="lg"
+                size="default"
+                className="w-full sm:w-auto"
                 onClick={() => window.open('tel:+351926227490')}
                 data-testid="button-call"
               >
-                <Phone className="w-5 h-5 mr-2" />
+                <Phone className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                 Ligar Agora
               </Button>
               <Button
                 variant="outline"
-                size="lg"
+                size="default"
+                className="w-full sm:w-auto"
                 onClick={() => window.open('https://instagram.com/lanchonetept.vr', '_blank')}
                 data-testid="button-instagram"
               >
-                <Instagram className="w-5 h-5 mr-2" />
+                <Instagram className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                 Seguir no Instagram
               </Button>
             </div>

@@ -84,7 +84,7 @@ export default function MenuSection() {
         <div className="text-center px-4">
           <Button 
             size="default"
-            className="text-sm md:text-lg px-4 md:px-8 py-2.5 md:py-6 shadow-lg w-full max-w-xs md:max-w-sm md:w-auto" 
+            className="text-sm md:text-lg shadow-lg w-full max-w-xs md:max-w-sm md:w-auto" 
             onClick={() => setIsMenuDialogOpen(true)}
             data-testid="button-view-full-menu"
           >
