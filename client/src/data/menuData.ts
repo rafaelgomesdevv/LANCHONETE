@@ -594,29 +594,16 @@ export const COMPLETE_MENU_DATA: MenuCategory[] = [
 // Featured items for the premium showcase
 export const FEATURED_ITEMS = [
   {
-    id: 'acai-350',
-    name: 'Açaí 350ml',
-    price: '6,00',
+    id: 'acai-premium',
+    name: 'Açaí',
     description: 'Açaí cremoso brasileiro com toppings gratuitos ilimitados',
     category: 'Açaí',
     image: '/src/assets/acai-premium.jpg',
-    popular: true
-  },
-  {
-    id: 'acai-500',
-    name: 'Açaí 500ml',
-    price: '8,00',
-    description: 'Açaí cremoso brasileiro com toppings gratuitos ilimitados',
-    category: 'Açaí',
-    image: '/src/assets/acai-premium.jpg',
-    popular: true
-  },
-  {
-    id: 'acai-700',
-    name: 'Açaí 700ml',
-    price: '11,50',
-    description: 'Açaí cremoso brasileiro com toppings gratuitos ilimitados',
-    category: 'Açaí',
-    image: '/src/assets/acai-premium.jpg'
+    popular: true,
+    sizes: [
+      { volume: '350ml', price: '6,00' },
+      { volume: '500ml', price: '8,00' },
+      { volume: '700ml', price: '11,50' }
+    ]
   }
 ];
