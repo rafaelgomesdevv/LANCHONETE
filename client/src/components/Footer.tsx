@@ -2,9 +2,9 @@ import { Heart, MapPin, Phone, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-muted py-12">
+    <footer className="bg-muted py-8 md:py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-4 gap-6 md:gap-8">
           <div className="md:col-span-2">
             <h3 className="font-bold text-xl text-primary mb-4" data-testid="text-footer-title">
               Lanchonete & Cia
@@ -94,9 +94,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-8 text-center">
-          <p className="text-muted-foreground text-sm" data-testid="text-footer-copyright">
-            © 2024 Lanchonete & Cia. Todos os direitos reservados. | 
+        <div className="border-t mt-6 md:mt-8 pt-6 md:pt-8 text-center">
+          <p className="text-muted-foreground text-xs md:text-sm" data-testid="text-footer-copyright">
+            © 2024 Lanchonete & Cia. Todos os direitos reservados.<br className="md:hidden" />
+            <span className="hidden md:inline"> | </span>
             Desenvolvido com ❤️ para compartilhar os sabores do Brasil
           </p>
         </div>

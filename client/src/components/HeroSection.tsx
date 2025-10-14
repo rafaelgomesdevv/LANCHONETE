@@ -20,24 +20,24 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Star className="w-5 h-5 text-yellow-400 fill-current" />
-          <span className="text-yellow-400 font-semibold" data-testid="text-rating">4.7 ★ (100 avaliações)</span>
+        <div className="flex items-center justify-center gap-2 mb-3 md:mb-4">
+          <Star className="w-4 h-4 md:w-5 md:h-5 text-yellow-400 fill-current" />
+          <span className="text-sm md:text-base text-yellow-400 font-semibold" data-testid="text-rating">4.7 ★ (100 avaliações)</span>
         </div>
         
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-3" data-testid="text-hero-title">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-2 md:mb-3" data-testid="text-hero-title">
           Lanchonete & Cia
         </h1>
-        <p className="text-xl md:text-3xl mb-6 text-gray-200 font-light" data-testid="text-hero-subtitle">
+        <p className="text-lg sm:text-xl md:text-3xl mb-4 md:mb-6 text-gray-200 font-light" data-testid="text-hero-subtitle">
           Açaí & Cia
         </p>
 
-        <div className="flex items-center justify-center gap-2 mb-8 text-gray-200">
+        <div className="flex items-center justify-center gap-2 mb-6 md:mb-8 text-sm md:text-base text-gray-200">
           <MapPin className="w-4 h-4" />
           <span data-testid="text-location">Vila Real, Portugal</span>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 justify-center px-4">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button 
             size="lg"
             onClick={scrollToMenu}

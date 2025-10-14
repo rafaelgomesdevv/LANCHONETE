@@ -9,6 +9,8 @@ import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { useCallback } from 'react';
+import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Lanchonete+%26+Cia+(A%C3%A7a%C3%AD+%26+Cia)/@41.3055833,-7.7249037,17z/data=!3m1!4b1!4m6!3m5!1s0xd3b4b63a60ea017:0x5298c3e2baabd70c!8m2!3d41.3055833!4d-7.7223234!16s%2Fg%2F11krb3tg55?entry=ttu&g_ep=EgoyMDI1MTAwOC4wIKXMDSoASAFQAw%3D%3D";
 
@@ -89,11 +91,20 @@ export default function ReviewsSection() {
     return avatarColors[index % avatarColors.length];
   };
 
+  const formatReviewDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return formatDistanceToNow(date, { addSuffix: true, locale: ptBR });
+    } catch {
+      return dateString;
+    }
+  };
+
   return (
-    <section id="avaliacoes" className="py-16 bg-background">
+    <section id="avaliacoes" className="py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4">
         <motion.div 
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -102,17 +113,17 @@ export default function ReviewsSection() {
           <Badge variant="outline" className="mb-4" data-testid="badge-reviews">
             Avaliações
           </Badge>
-          <h2 className="text-4xl font-bold mb-4" data-testid="text-reviews-title">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-reviews-title">
             O Que Dizem Nossos Clientes
           </h2>
-          <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="flex items-center justify-center gap-2 flex-wrap mb-2">
             <div className="flex" data-testid="stars-average">
               {renderStars(Math.round(averageRating))}
             </div>
-            <span className="text-2xl font-bold" data-testid="text-average-rating">
+            <span className="text-xl md:text-2xl font-bold" data-testid="text-average-rating">
               {averageRating.toFixed(1)}
             </span>
-            <span className="text-muted-foreground" data-testid="text-total-reviews">
+            <span className="text-sm md:text-base text-muted-foreground" data-testid="text-total-reviews">
               ({reviews.length} avaliações)
             </span>
           </div>
@@ -147,7 +158,7 @@ export default function ReviewsSection() {
                               {renderStars(review.rating)}
                             </div>
                             <span className="text-xs text-muted-foreground" data-testid={`text-review-date-${review.id}`}>
-                              {review.date}
+                              {formatReviewDate(review.date)}
                             </span>
                           </div>
                         </div>
@@ -186,7 +197,7 @@ export default function ReviewsSection() {
         </div>
 
         <motion.div 
-          className="text-center mt-12"
+          className="text-center mt-8 md:mt-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
