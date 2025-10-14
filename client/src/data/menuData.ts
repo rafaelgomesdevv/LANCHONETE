@@ -6,6 +6,7 @@ export interface MenuItemData {
   description: string;
   category: string;
   popular?: boolean;
+  size?: string;
 }
 
 export interface MenuCategory {
@@ -16,6 +17,167 @@ export interface MenuCategory {
 }
 
 export const COMPLETE_MENU_DATA: MenuCategory[] = [
+  {
+    id: 'acai',
+    name: 'Açaí',
+    icon: '🫐',
+    items: [
+      {
+        id: 'acai-350',
+        name: 'Açaí 350ml',
+        price: '6,00',
+        description: 'Açaí cremoso brasileiro com toppings à sua escolha',
+        category: 'Açaí',
+        size: '350ml',
+        popular: true
+      },
+      {
+        id: 'acai-500',
+        name: 'Açaí 500ml',
+        price: '8,00',
+        description: 'Açaí cremoso brasileiro com toppings à sua escolha',
+        category: 'Açaí',
+        size: '500ml',
+        popular: true
+      },
+      {
+        id: 'acai-700',
+        name: 'Açaí 700ml',
+        price: '11,50',
+        description: 'Açaí cremoso brasileiro com toppings à sua escolha',
+        category: 'Açaí',
+        size: '700ml'
+      }
+    ]
+  },
+  {
+    id: 'toppings-gratuitos',
+    name: 'Toppings Gratuitos',
+    icon: '🍓',
+    items: [
+      {
+        id: 'leite-condensado',
+        name: 'Leite Condensado',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'granola',
+        name: 'Granola',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'leite-po',
+        name: 'Leite em Pó',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'creme-nido',
+        name: 'Creme de Leite Nido',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'ananas',
+        name: 'Ananás',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'banana',
+        name: 'Banana',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'kiwi',
+        name: 'Kiwi',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'morango',
+        name: 'Morango',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      },
+      {
+        id: 'uva',
+        name: 'Uva',
+        price: '0,00',
+        description: 'Topping gratuito e ilimitado',
+        category: 'Toppings'
+      }
+    ]
+  },
+  {
+    id: 'extras',
+    name: 'Extras',
+    icon: '✨',
+    items: [
+      {
+        id: 'pacoca',
+        name: 'Paçoca',
+        price: '1,00',
+        description: 'Extra especial',
+        category: 'Extras'
+      },
+      {
+        id: 'nutella',
+        name: 'Nutella',
+        price: '1,50',
+        description: 'Extra especial',
+        category: 'Extras',
+        popular: true
+      },
+      {
+        id: 'doce-leite',
+        name: 'Doce de Leite',
+        price: '1,00',
+        description: 'Extra especial',
+        category: 'Extras'
+      },
+      {
+        id: 'kinder',
+        name: 'Kinder Bueno',
+        price: '1,50',
+        description: 'Extra especial',
+        category: 'Extras',
+        popular: true
+      },
+      {
+        id: 'kitkat',
+        name: 'Kitkat',
+        price: '1,00',
+        description: 'Extra especial',
+        category: 'Extras'
+      },
+      {
+        id: 'pintarolas',
+        name: 'Pintarolas',
+        price: '1,00',
+        description: 'Extra especial',
+        category: 'Extras'
+      },
+      {
+        id: 'oreo',
+        name: 'Oreo',
+        price: '1,00',
+        description: 'Extra especial',
+        category: 'Extras'
+      }
+    ]
+  },
   {
     id: 'salgados',
     name: 'Salgados',
@@ -432,29 +594,29 @@ export const COMPLETE_MENU_DATA: MenuCategory[] = [
 // Featured items for the premium showcase
 export const FEATURED_ITEMS = [
   {
-    id: 'acai-bowl',
-    name: 'Açaí Premium',
-    price: '6,50',
-    description: 'Açaí cremoso brasileiro com frutas frescas e toppings especiais',
+    id: 'acai-350',
+    name: 'Açaí 350ml',
+    price: '6,00',
+    description: 'Açaí cremoso brasileiro com toppings gratuitos ilimitados',
     category: 'Açaí',
     image: '/src/assets/acai-premium.jpg',
     popular: true
   },
   {
-    id: 'burger-menu',
-    name: 'Menu Burger Premium',
-    price: '9,80',
-    description: 'Hambúrguer artesanal completo com batatas caseiras',
-    category: 'Hambúrgueres',
-    image: '/src/assets/burger-premium.jpg',
+    id: 'acai-500',
+    name: 'Açaí 500ml',
+    price: '8,00',
+    description: 'Açaí cremoso brasileiro com toppings gratuitos ilimitados',
+    category: 'Açaí',
+    image: '/src/assets/acai-premium.jpg',
     popular: true
   },
   {
-    id: 'beverage-special',
-    name: 'Bebidas Especiais',
-    price: '4,00',
-    description: 'Seleção de bebidas artesanais e refrescantes',
-    category: 'Bebidas',
-    image: '/src/assets/beverage-premium.jpg'
+    id: 'acai-700',
+    name: 'Açaí 700ml',
+    price: '11,50',
+    description: 'Açaí cremoso brasileiro com toppings gratuitos ilimitados',
+    category: 'Açaí',
+    image: '/src/assets/acai-premium.jpg'
   }
 ];

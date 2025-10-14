@@ -7,16 +7,9 @@ import { MenuDialog } from './MenuDialog';
 import { AcaiBuilderDialog } from './AcaiBuilderDialog';
 import { MenuIcon, Star, Sparkles } from 'lucide-react';
 import acaiPremium from '../assets/acai-premium-animated.gif';
-import burgerPremium from '../assets/burger-premium.jpg';
-import beveragePremium from '../assets/beverage-premium.jpg';
 
 const getFeaturedImage = (id: string) => {
-  switch (id) {
-    case 'acai-bowl': return acaiPremium;
-    case 'burger-menu': return burgerPremium;
-    case 'beverage-special': return beveragePremium;
-    default: return undefined;
-  }
+  return acaiPremium;
 };
 
 export default function MenuSection() {
@@ -28,13 +21,13 @@ export default function MenuSection() {
       <div className="container mx-auto px-3 md:px-4">
         <div className="text-center mb-6 md:mb-12">
           <Badge variant="outline" className="mb-2 md:mb-3 text-xs md:text-sm" data-testid="badge-menu">
-            Menu Premium
+            Açaí Premium
           </Badge>
           <h2 className="text-xl md:text-4xl font-bold mb-2 md:mb-4 px-2" data-testid="text-menu-title">
-            Sabores Autênticos do Brasil
+            O Melhor Açaí de Vila Real
           </h2>
           <p className="text-sm md:text-xl text-muted-foreground px-4 md:px-2" data-testid="text-menu-description">
-            Descubra nossa seleção premium de pratos brasileiros
+            Açaí cremoso brasileiro com toppings gratuitos ilimitados
           </p>
         </div>
 
@@ -106,7 +99,7 @@ export default function MenuSection() {
             </Button>
           </div>
           <p className="text-xs md:text-base text-muted-foreground px-2" data-testid="text-price-range">
-            Preços a partir de €1,50<br className="md:hidden" /><span className="hidden md:inline"> • </span>Entregas disponíveis
+            A partir de €6,00<br className="md:hidden" /><span className="hidden md:inline"> • </span>Toppings ilimitados grátis
           </p>
         </div>
       </div>
