@@ -31,11 +31,11 @@ export default function MenuSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-8 mb-6 md:mb-12">
+        <div className="flex justify-center mb-6 md:mb-12">
           {FEATURED_ITEMS.map((item) => {
             const itemImage = getFeaturedImage(item.id);
             return (
-              <Card key={item.id} className="hover-elevate overflow-hidden group" data-testid={`card-featured-${item.id}`}>
+              <Card key={item.id} className="hover-elevate overflow-hidden group w-full max-w-2xl" data-testid={`card-featured-${item.id}`}>
                 <div className="aspect-[4/3] overflow-hidden">
                   <img 
                     src={itemImage} 
@@ -44,32 +44,45 @@ export default function MenuSection() {
                     data-testid={`img-featured-${item.id}`}
                   />
                 </div>
-                <CardHeader className="p-3 md:p-4 md:pb-3">
+                <CardHeader className="p-3 md:p-6 md:pb-4">
                   <div className="flex items-start justify-between mb-1 md:mb-2">
-                    <CardTitle className="text-base md:text-xl leading-tight" data-testid={`text-featured-name-${item.id}`}>
+                    <CardTitle className="text-xl md:text-3xl leading-tight" data-testid={`text-featured-name-${item.id}`}>
                       {item.name}
                     </CardTitle>
                     {item.popular && (
-                      <Badge variant="destructive" className="ml-1 md:ml-2 flex-shrink-0 text-xs" data-testid={`badge-featured-popular-${item.id}`}>
-                        <Star className="w-3 h-3 mr-1" />
+                      <Badge variant="destructive" className="ml-1 md:ml-2 flex-shrink-0 text-xs md:text-sm" data-testid={`badge-featured-popular-${item.id}`}>
+                        <Star className="w-3 h-3 md:w-4 md:h-4 mr-1" />
                         <span className="hidden sm:inline">Popular</span>
                         <span className="sm:hidden">★</span>
                       </Badge>
                     )}
                   </div>
-                  <div className="flex items-center justify-between mb-1 md:mb-3">
-                    <Badge variant="outline" className="text-xs" data-testid={`badge-featured-category-${item.id}`}>
-                      {item.category}
-                    </Badge>
-                    <span className="text-lg md:text-2xl font-bold text-primary" data-testid={`text-featured-price-${item.id}`}>
-                      €{item.price}
-                    </span>
-                  </div>
+                  <Badge variant="outline" className="text-xs w-fit" data-testid={`badge-featured-category-${item.id}`}>
+                    {item.category}
+                  </Badge>
                 </CardHeader>
-                <CardContent className="pt-0 px-3 md:px-4 pb-3 md:pb-4">
-                  <CardDescription className="text-xs md:text-sm leading-relaxed line-clamp-2 md:line-clamp-none" data-testid={`text-featured-description-${item.id}`}>
+                <CardContent className="pt-0 px-3 md:px-6 pb-3 md:pb-6">
+                  <CardDescription className="text-sm md:text-base leading-relaxed mb-4" data-testid={`text-featured-description-${item.id}`}>
                     {item.description}
                   </CardDescription>
+                  {item.sizes && (
+                    <div className="space-y-2 md:space-y-3" data-testid="container-acai-sizes">
+                      {item.sizes.map((size, index) => (
+                        <div 
+                          key={index}
+                          className="flex items-center justify-between py-2 px-3 md:px-4 rounded-md bg-muted/50"
+                          data-testid={`item-size-${size.volume}`}
+                        >
+                          <span className="text-sm md:text-lg font-medium" data-testid={`text-size-${size.volume}`}>
+                            {size.volume}
+                          </span>
+                          <span className="text-lg md:text-2xl font-bold text-primary" data-testid={`text-price-${size.volume}`}>
+                            €{size.price}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             );
