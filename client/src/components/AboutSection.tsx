@@ -23,22 +23,22 @@ const features = [
 
 export default function AboutSection() {
   return (
-    <section id="sobre" className="py-16 bg-card">
+    <section id="sobre" className="py-12 md:py-16 bg-card">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
             <Badge variant="outline" className="mb-4" data-testid="badge-about">
               Sobre Nós
             </Badge>
-            <h2 className="text-4xl font-bold mb-6" data-testid="text-about-title">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6" data-testid="text-about-title">
               O Melhor Açaí de Vila Real
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed" data-testid="text-about-description">
+            <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8 leading-relaxed" data-testid="text-about-description">
               Trazemos os autênticos sabores brasileiros para Vila Real. 
               Especialistas em açaí cremoso e deliciosas coxinhas.
             </p>
 
-            <div className="grid sm:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-3 gap-4 md:gap-6">
               {features.map((feature) => (
                 <div key={feature.title} className="text-center" data-testid={`feature-${feature.title.toLowerCase().replace(' ', '-')}`}>
                   <div className="inline-flex p-3 bg-primary/10 rounded-xl mb-3">
@@ -55,21 +55,21 @@ export default function AboutSection() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative mt-8 lg:mt-0">
             <Card className="overflow-hidden">
               <CardContent className="p-0">
                 <img 
                   src={interiorImage} 
                   alt="Interior da Lanchonete & Cia"
-                  className="w-full h-[400px] object-cover"
+                  className="w-full h-[250px] sm:h-[350px] lg:h-[400px] object-cover"
                   data-testid="img-restaurant-interior"
                 />
               </CardContent>
             </Card>
-            <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-5 rounded-xl shadow-lg">
+            <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary text-primary-foreground p-4 md:p-5 rounded-xl shadow-lg">
               <div className="text-center">
-                <div className="text-3xl font-bold" data-testid="text-rating-score">4.7</div>
-                <div className="text-sm" data-testid="text-rating-count">100 Avaliações</div>
+                <div className="text-2xl md:text-3xl font-bold" data-testid="text-rating-score">4.7</div>
+                <div className="text-xs md:text-sm" data-testid="text-rating-count">100 Avaliações</div>
               </div>
             </div>
           </div>

@@ -15,18 +15,18 @@ const businessHours = [
 
 export default function ContactSection() {
   return (
-    <section id="contato" className="py-16 bg-card">
+    <section id="contato" className="py-12 md:py-16 bg-card">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <Badge variant="outline" className="mb-4" data-testid="badge-contact">
             Contato
           </Badge>
-          <h2 className="text-4xl font-bold mb-4" data-testid="text-contact-title">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-contact-title">
             Visite-nos
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid lg:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
           <div className="lg:col-span-1 space-y-6">
             <Card>
               <CardHeader>
@@ -68,15 +68,15 @@ export default function ContactSection() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-between gap-2 flex-wrap">
+                <div className="space-y-2">
                   {businessHours.map((schedule) => (
                     <div
                       key={schedule.day}
-                      className="flex flex-col items-center"
+                      className="flex items-center justify-between py-1.5 border-b last:border-0 border-border/40"
                       data-testid={`schedule-${schedule.day.toLowerCase()}`}
                     >
-                      <span className="font-medium text-sm mb-1">{schedule.day}</span>
-                      <span className={`text-xs ${schedule.closed ? 'text-destructive' : 'text-muted-foreground'}`}>
+                      <span className="font-medium text-sm">{schedule.day}</span>
+                      <span className={`text-sm font-medium ${schedule.closed ? 'text-destructive' : 'text-foreground'}`}>
                         {schedule.hours}
                       </span>
                     </div>
@@ -104,7 +104,7 @@ export default function ContactSection() {
           <div className="lg:col-span-2">
             <Card className="h-full">
               <CardContent className="p-0">
-                <div className="h-[500px] w-full">
+                <div className="h-[300px] md:h-[400px] lg:h-[500px] w-full">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.4555555555557!2d-7.7249037!3d41.3055833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3b4b63a60ea017%3A0x5298c3e2baabd70c!2sLanchonete%20%26%20Cia%20(A%C3%A7a%C3%AD%20%26%20Cia)!5e0!3m2!1sen!2spt!4v1625097600000!5m2!1sen!2spt"
                     width="100%"
@@ -123,13 +123,14 @@ export default function ContactSection() {
         </div>
 
         <div className="text-center">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
             <Button
               size="lg"
               onClick={() => window.open('tel:+351926227490')}
               data-testid="button-call"
+              className="w-full sm:w-auto"
             >
-              <Phone className="w-5 h-5 mr-2" />
+              <Phone className="w-4 h-4 md:w-5 md:h-5 mr-2" />
               Ligar Agora
             </Button>
             <Button
@@ -137,8 +138,9 @@ export default function ContactSection() {
               size="lg"
               onClick={() => window.open('https://instagram.com/lanchonetept.vr', '_blank')}
               data-testid="button-instagram-cta"
+              className="w-full sm:w-auto"
             >
-              <Instagram className="w-5 h-5 mr-2" />
+              <Instagram className="w-4 h-4 md:w-5 md:h-5 mr-2" />
               Seguir Instagram
             </Button>
           </div>
