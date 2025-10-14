@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { FEATURED_ITEMS } from '@/data/menuData';
 import { MenuDialog } from './MenuDialog';
-import { MenuIcon, Star } from 'lucide-react';
+import { AcaiBuilderDialog } from './AcaiBuilderDialog';
+import { MenuIcon, Star, Sparkles } from 'lucide-react';
 import acaiPremium from '../assets/acai-premium-animated.gif';
 import burgerPremium from '../assets/burger-premium.jpg';
 import beveragePremium from '../assets/beverage-premium.jpg';
@@ -20,6 +21,7 @@ const getFeaturedImage = (id: string) => {
 
 export default function MenuSection() {
   const [isMenuDialogOpen, setIsMenuDialogOpen] = useState(false);
+  const [isAcaiBuilderOpen, setIsAcaiBuilderOpen] = useState(false);
 
   return (
     <section id="menu" className="py-6 md:py-16 bg-background">
@@ -82,16 +84,28 @@ export default function MenuSection() {
         </div>
 
         <div className="text-center px-4">
-          <Button 
-            size="default"
-            className="text-sm md:text-lg shadow-lg w-full max-w-xs md:max-w-sm md:w-auto" 
-            onClick={() => setIsMenuDialogOpen(true)}
-            data-testid="button-view-full-menu"
-          >
-            <MenuIcon className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-            Ver Menu Completo
-          </Button>
-          <p className="text-xs md:text-base text-muted-foreground mt-2 md:mt-4 px-2" data-testid="text-price-range">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-3">
+            <Button 
+              size="lg"
+              className="text-sm md:text-lg shadow-lg w-full sm:w-auto" 
+              onClick={() => setIsAcaiBuilderOpen(true)}
+              data-testid="button-build-acai"
+            >
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+              Monte Seu Açaí
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="text-sm md:text-lg w-full sm:w-auto" 
+              onClick={() => setIsMenuDialogOpen(true)}
+              data-testid="button-view-full-menu"
+            >
+              <MenuIcon className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+              Ver Menu Completo
+            </Button>
+          </div>
+          <p className="text-xs md:text-base text-muted-foreground px-2" data-testid="text-price-range">
             Preços a partir de €1,50<br className="md:hidden" /><span className="hidden md:inline"> • </span>Entregas disponíveis
           </p>
         </div>
@@ -100,6 +114,11 @@ export default function MenuSection() {
       <MenuDialog 
         open={isMenuDialogOpen} 
         onOpenChange={setIsMenuDialogOpen} 
+      />
+      
+      <AcaiBuilderDialog 
+        open={isAcaiBuilderOpen} 
+        onOpenChange={setIsAcaiBuilderOpen} 
       />
     </section>
   );
