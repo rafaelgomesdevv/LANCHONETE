@@ -102,7 +102,7 @@ export default function ContactSection() {
           </div>
 
           <div className="lg:col-span-2">
-            <Card className="h-full">
+            <Card className="h-full pt-[100px] pb-[100px]">
               <CardContent className="p-0">
                 <div className="h-[300px] md:h-[400px] lg:h-[500px] w-full">
                   <iframe
