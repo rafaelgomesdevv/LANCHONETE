@@ -434,10 +434,10 @@ export default function AcaiBuilder() {
               <Button
                 size="lg"
                 className="flex-1"
-                onClick={() => window.open('tel:+351926227490')}
+                onClick={() => window.open('https://www.ubereats.com/pt/store/lanchonete-%26-cia/enCC5eHcXBantUgIKxZ3SA?mod=quickView&modctx=%257B%2522storeUuid%2522%253A%25227a7082e5-e1dc-5c16-a7b5-48082b167748%2522%252C%2522sectionUuid%2522%253A%2522adf2312b-05f3-4564-8a71-6a288fd35bc9%2522%252C%2522subsectionUuid%2522%253A%25225f48ef37-92f4-4663-bef0-1388f3fde872%2522%252C%2522itemUuid%2522%253A%25221c13ea88-ad8a-43e9-854e-f9426471e0ef%2522%252C%2522showSeeDetailsCTA%2522%253Atrue%257D&ps=1', '_blank')}
                 data-testid="button-finalize-order"
               >
-                Fazer Pedido
+                Encomendar por Uber Eats
               </Button>
             </div>
           </motion.div>
