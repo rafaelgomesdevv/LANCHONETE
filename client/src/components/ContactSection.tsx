@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Phone, Clock, Instagram } from 'lucide-react';
+import { MapPin, Phone, Clock, Instagram, ShoppingBag } from 'lucide-react';
 
 const businessHours = [
   { day: 'Seg', hours: '12h - 23h' },
@@ -142,6 +142,16 @@ export default function ContactSection() {
             >
               <Instagram className="w-4 h-4 md:w-5 md:h-5 mr-2" />
               Seguir Instagram
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => window.open('https://www.ubereats.com/pt/store/lanchonete-%26-cia/enCC5eHcXBantUgIKxZ3SA?srsltid=AfmBOopRnEd3pW9ArP9KvMnZH2ypl2Rtmtwu_yUfeFA47TL93GZ6unB9', '_blank')}
+              data-testid="button-ubereats"
+              className="w-full sm:w-auto"
+            >
+              <ShoppingBag className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+              Encomendar Uber Eats
             </Button>
           </div>
         </div>
