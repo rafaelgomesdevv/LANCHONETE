@@ -60,8 +60,8 @@ export default function AboutSection() {
               <CardContent className="p-0">
                 <img 
                   src={interiorImage} 
-                  alt="Interior da Lanchonete & Cia"
-                  className="w-full h-[250px] sm:h-[350px] lg:h-[400px] object-cover"
+                  alt="Açaí da Lanchonete & Cia"
+                  className="w-full h-[400px] sm:h-[450px] lg:h-[500px] object-cover object-center"
                   data-testid="img-restaurant-interior"
                 />
               </CardContent>
