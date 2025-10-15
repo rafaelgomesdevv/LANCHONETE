@@ -98,7 +98,7 @@ export default function MenuSection() {
               data-testid="button-build-acai"
             >
               <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              Monte Seu Açaí
+              Simule Seu Açaí
             </Button>
             <Button 
               size="lg"
