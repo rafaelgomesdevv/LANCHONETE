@@ -62,9 +62,17 @@ const EXTRA_TOPPINGS: Topping[] = [
 export default function AcaiBuilder() {
   const [step, setStep] = useState(1);
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
-  const [selectedFlavor, setSelectedFlavor] = useState<Flavor | null>(null);
+  const [selectedFlavors, setSelectedFlavors] = useState<string[]>([]);
   const [selectedFreeToppings, setSelectedFreeToppings] = useState<string[]>([]);
   const [selectedExtraToppings, setSelectedExtraToppings] = useState<string[]>([]);
+
+  const toggleFlavor = (flavorId: string) => {
+    setSelectedFlavors(prev =>
+      prev.includes(flavorId)
+        ? prev.filter(id => id !== flavorId)
+        : [...prev, flavorId]
+    );
+  };
 
   const toggleFreeTopping = (toppingId: string) => {
     setSelectedFreeToppings(prev =>
@@ -92,7 +100,7 @@ export default function AcaiBuilder() {
   };
 
   const canProceedToStep2 = selectedSize !== null;
-  const canProceedToStep3 = selectedFlavor !== null;
+  const canProceedToStep3 = selectedFlavors.length > 0;
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
@@ -204,24 +212,27 @@ export default function AcaiBuilder() {
             <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center">
               Escolha o Sabor
             </h2>
-            <p className="text-sm md:text-base text-muted-foreground text-center mb-6">
-              Selecione o sabor do seu açaí
+            <p className="text-sm md:text-base text-muted-foreground text-center mb-2">
+              Selecione os sabores do seu açaí
             </p>
+            <Badge variant="secondary" className="mx-auto block w-fit mb-6">
+              {selectedFlavors.length} selecionados
+            </Badge>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 mb-6">
               {FLAVORS.map((flavor) => (
                 <Card
                   key={flavor.id}
                   className={`cursor-pointer transition-all hover-elevate ${
-                    selectedFlavor?.id === flavor.id
+                    selectedFlavors.includes(flavor.id)
                       ? 'ring-2 ring-primary bg-primary/5'
                       : ''
                   }`}
-                  onClick={() => setSelectedFlavor(flavor)}
+                  onClick={() => toggleFlavor(flavor.id)}
                   data-testid={`flavor-option-${flavor.id}`}
                 >
                   <CardContent className="p-4 text-center relative">
-                    {selectedFlavor?.id === flavor.id && (
+                    {selectedFlavors.includes(flavor.id) && (
                       <div className="absolute top-2 right-2">
                         <div className="bg-primary text-primary-foreground rounded-full p-1">
                           <Check className="w-3 h-3 md:w-4 md:h-4" />
@@ -396,7 +407,9 @@ export default function AcaiBuilder() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Sabor:</span>
-                    <span className="font-semibold">{selectedFlavor?.name}</span>
+                    <span className="font-semibold">
+                      {selectedFlavors.map(id => FLAVORS.find(f => f.id === id)?.name).join(', ')}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Toppings Grátis:</span>
