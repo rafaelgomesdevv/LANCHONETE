@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Heart, Award, Users } from 'lucide-react';
-import interiorImage from '@assets/generated_images/Restaurant_interior_atmosphere_7dca3576.png';
+import interiorImage from '../assets/restaurant-interior.png';
 
 const features = [
   {
